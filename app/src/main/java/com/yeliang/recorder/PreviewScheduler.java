@@ -40,6 +40,9 @@ public class PreviewScheduler implements VideoCamera.VideoCameraCallBack, Record
 
     public native void createWindowSurface(Surface surface);
 
+
+    public native void switchCamera();
+
     private CameraConfigInfo mConfigIfo;
 
     //jni回调 获取CameraConfigInfo
@@ -59,6 +62,10 @@ public class PreviewScheduler implements VideoCamera.VideoCameraCallBack, Record
         mCamera.updateTexImage();
     }
 
+    //jin回调
+    public void releaseCameraFromNative(){
+        //mCamera.releaseCamera();
+    }
 
     @Override
     public void onPermissionDismiss(String tip) {
@@ -83,4 +90,5 @@ public class PreviewScheduler implements VideoCamera.VideoCameraCallBack, Record
     public void destroySurface() {
 
     }
+
 }

@@ -23,7 +23,6 @@ Java_com_yeliang_recorder_PreviewScheduler_prepareEGLContext(JNIEnv *env, jobjec
     }
 }
 
-extern "C"
 JNIEXPORT void JNICALL
 Java_com_yeliang_recorder_PreviewScheduler_createWindowSurface(JNIEnv *env, jobject instance,
                                                                jobject surface) {
@@ -34,13 +33,18 @@ Java_com_yeliang_recorder_PreviewScheduler_createWindowSurface(JNIEnv *env, jobj
             controller->createWindowSurface(window);
         }
     }
+}
 
-
-}extern "C"
 JNIEXPORT void JNICALL
 Java_com_yeliang_recorder_PreviewScheduler_notifyFrameAvailable(JNIEnv *env, jobject instance) {
     if(NULL != controller){
         controller->notifyFrameAvaliable();
     }
+}
 
+JNIEXPORT void JNICALL
+Java_com_yeliang_recorder_PreviewScheduler_switchCamera(JNIEnv *env, jobject instance){
+    if(NULL != controller){
+        controller->switchCamera();
+    }
 }

@@ -22,7 +22,7 @@ enum RenderThreadMessage {
     MSG_RENDER_FRAME = 0,
     MSG_EGL_THREAD_CREATE,
     MSG_EGL_CREATE_PREVIEW_SURFACE,
-    MSG_SWITCH_CAMERA_FACING,
+    MSG_SWITCH_CAMERA,
     MSG_START_RECORDING,
     MSG_STOP_RECORDING,
     MSG_EGL_DESTROY_PREVIEW_SURFACE,
@@ -128,9 +128,6 @@ public:
                 break;
             case MSG_EGL_CREATE_PREVIEW_SURFACE:
                 controller->createPreviewSurface();
-                break;
-            case MSG_SWITCH_CAMERA_FACING:
-                controller->switchCamera();
                 break;
             case MSG_START_RECORDING:
                 controller->startRecording();

@@ -55,7 +55,40 @@ void Controller::destroyPreviewSurface(){
 }
 
 void Controller::switchCamera(){
+    isInSwitchingCamera = true;
+    if(facingId == CAMERA_FACING_BACK){
+        facingId = CAMERA_FACING_FRONT;
+    } else {
+        facingId = CAMERA_FACING_BACK;
+    }
 
+    releaseCamera();
+    configCamera();
+    render->setDegress(degress, facingId == CAMERA_FACING_FRONT);
+    startCameraPreview();
+    isInSwitchingCamera = false;
+}
+
+void Controller::releaseCamera(){
+    JNIEnv *env;
+
+    if(jvm->AttachCurrentThread(&env, NULL) != JNI_OK){
+        return;
+    }
+
+    if(env == NULL){
+        return;
+    }
+
+    jclass jcls = env->GetObjectClass(obj);
+    if(NULL != jcls){
+        jmethodID  releaseCameraCallback = env->GetMethodID(jcls, "releaseCameraFromNative","()V");
+        if(NULL != releaseCameraCallback){
+            env->CallVoidMethod(obj, releaseCameraCallback);
+        }
+    }
+
+    jvm->DetachCurrentThread();
 }
 
 void Controller::startRecording(){
@@ -243,6 +276,8 @@ void Controller::updateTexImage()
     }
 
     jclass jcls = env->GetObjectClass(obj);
+
+    printf("Controller::updateTexImage &jcls = %p", &jcls);
     if(NULL != jcls){
         jmethodID updateTexImageCallback = env->GetMethodID(jcls, "updateTexImageFromNative", "()V");
         if(NULL != updateTexImageCallback){

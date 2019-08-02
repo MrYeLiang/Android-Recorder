@@ -16,4 +16,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:text="开始录制" />
+
+    <Button
+        android:id="@+id/btn_camera_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="摄像头切换" />
 </RelativeLayout>

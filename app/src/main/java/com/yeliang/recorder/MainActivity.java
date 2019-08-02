@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PreviewScheduler mScheduler;
 
     private Button btnStartRecord;
+    private Button btnScrollSwitch;
 
     private boolean hasStart = false;
 
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSurfaceView = findViewById(R.id.recorder_view);
         btnStartRecord = findViewById(R.id.btn_start_record);
         btnStartRecord.setOnClickListener(this);
+
+        btnScrollSwitch = findViewById(R.id.btn_camera_switch);
+        btnScrollSwitch.setOnClickListener(this);
     }
 
     private void initData() {
@@ -74,18 +78,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_start_record:
                 hasStart = !hasStart;
 
-                if(hasStart){
+                if (hasStart) {
                     btnStartRecord.setText("停止");
                     startRecord();
-                }else{
+                } else {
                     btnStartRecord.setText("开始录制");
                     stopRecord();
                 }
+                break;
+
+            case R.id.btn_camera_switch:
+                mScheduler.switchCamera();
                 break;
             default:
                 break;
         }
     }
+
+
 
     private void stopRecord() {
 

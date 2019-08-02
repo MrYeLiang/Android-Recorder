@@ -52,7 +52,7 @@ public class VideoCamera {
         return setCamera(cameraFacingId);
     }
 
-    private void releaseCamera() {
+    public void releaseCamera() {
         if (mTexture != null) {
             mTexture.release();
             mTexture = null;
