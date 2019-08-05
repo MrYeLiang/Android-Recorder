@@ -62,6 +62,13 @@ void Controller::switchCamera(){
         facingId = CAMERA_FACING_BACK;
     }
 
+    if(handler){
+        handler->postMessage(new Message(MSG_SWITCH_CAMERA));
+    }
+}
+
+void Controller::switchCameraFromMessage()
+{
     releaseCamera();
     configCamera();
     render->setDegress(degress, facingId == CAMERA_FACING_FRONT);

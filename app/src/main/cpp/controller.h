@@ -52,6 +52,7 @@ public:
     void destroyPreviewSurface();
 
     void switchCamera();
+    void switchCameraFromMessage();
 
     void startRecording();
 
@@ -143,6 +144,9 @@ public:
                 break;
             case MSG_RENDER_FRAME:
                 controller->renderFrame();
+                break;
+            case MSG_SWITCH_CAMERA:
+                controller->switchCameraFromMessage();
                 break;
         }
     }
