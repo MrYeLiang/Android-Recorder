@@ -28,9 +28,14 @@ Java_com_yeliang_recorder_PreviewScheduler_createWindowSurface(JNIEnv *env, jobj
 JNIEXPORT void JNICALL
 Java_com_yeliang_recorder_PreviewScheduler_notifyFrameAvailable(JNIEnv *env, jobject instance);
 
-
+//切换摄像头
 JNIEXPORT void JNICALL
 Java_com_yeliang_recorder_PreviewScheduler_switchCamera(JNIEnv *env, jobject instance);
+
+
+//释放资源
+JNIEXPORT void JNICALL
+Java_com_yeliang_recorder_PreviewScheduler_destroyEGLContext(JNIEnv *env, jobject instance);
 
 #ifdef __cplusplus
 }

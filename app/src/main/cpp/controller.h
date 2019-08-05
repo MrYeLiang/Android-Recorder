@@ -49,6 +49,8 @@ public:
 
     void createPreviewSurface();
 
+    void destroyEGLContext();
+
     void destroyPreviewSurface();
 
     void switchCamera();

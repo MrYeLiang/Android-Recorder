@@ -48,3 +48,17 @@ Java_com_yeliang_recorder_PreviewScheduler_switchCamera(JNIEnv *env, jobject ins
         controller->switchCamera();
     }
 }
+
+JNIEXPORT void JNICALL
+Java_com_yeliang_recorder_PreviewScheduler_destroyEGLContext(JNIEnv *env, jobject instance){
+    if(NULL != controller){
+        controller->destroyEGLContext();
+        delete controller;
+        controller = NULL;
+
+        if(g_obj != NULL){
+            env->DeleteGlobalRef(g_obj);
+            g_obj = 0;
+        }
+    }
+}

@@ -60,7 +60,9 @@ public class VideoCamera {
 
         if (null != mCamera) {
             mCamera.setPreviewCallback(null);
+            mCamera.stopPreview();
             mCamera.release();
+
             mCamera = null;
         }
     }

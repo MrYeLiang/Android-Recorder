@@ -36,14 +36,15 @@ public class PreviewScheduler implements VideoCamera.VideoCameraCallBack, Record
         }
     }
 
+    private CameraConfigInfo mConfigIfo;
+
     public native void prepareEGLContext(Surface surface, int width, int height, int cameraFacingId);
 
     public native void createWindowSurface(Surface surface);
 
-
     public native void switchCamera();
 
-    private CameraConfigInfo mConfigIfo;
+    public native void destroyEGLContext();
 
     //jni回调 获取CameraConfigInfo
     public CameraConfigInfo configCameraFromNative(int cameraFacingId) {
@@ -64,7 +65,7 @@ public class PreviewScheduler implements VideoCamera.VideoCameraCallBack, Record
 
     //jin回调
     public void releaseCameraFromNative(){
-        //mCamera.releaseCamera();
+        mCamera.releaseCamera();
     }
 
     @Override

@@ -39,8 +39,39 @@ bool Controller::init() {
     return true;
 }
 
-void Controller::destroy(){
+void Controller::destroyEGLContext()
+{
+    if(handler){
+        handler->postMessage(new Message(MSG_EGL_THREAD_EXIT));
+        handler->postMessage(new Message(MESSAGE_QUEUE_LOOP_QUIT_FLAG));
+    }
 
+    if(isThreadCreateSucceed){
+        pthread_join(_threadId, 0);
+    }
+
+    if(queue){
+        queue->abort();
+        delete queue;
+        queue = NULL;
+    }
+    if(handler){
+        delete handler;
+        handler = NULL;
+    }
+}
+
+void Controller::destroy(){
+    destroyPreviewSurface();
+    if(render){
+        render->dealloc();
+        delete render;
+        render = NULL;
+    }
+    releaseCamera();
+    eglCore->release();
+    delete eglCore;
+    eglCore = NULL;
 }
 
 void Controller::createPreviewSurface() {
