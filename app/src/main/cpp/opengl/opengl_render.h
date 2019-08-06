@@ -33,10 +33,7 @@ public:
     Render();
     virtual ~Render();
     bool init(int width, int height);
-    void renderToView(GLuint texID, int screenWidth, int screenHeight);
     void renderToViewWithAutofit(GLuint texID, int screenWidth, int screenHeight, int texWidth, int texHeight);
-    void renderToVFlipTexture(GLuint inputTexId, GLuint outputTexId);
-    void renderToTexture(GLuint inputTexId, GLuint outputTexId);
     void renderToAutoFitTexture(GLuint inputTexId, int width, int height, GLuint outputTexId);
     void dealloc();
 

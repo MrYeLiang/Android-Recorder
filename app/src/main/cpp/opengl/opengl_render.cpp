@@ -34,33 +34,6 @@ bool Render::init(int width, int height) {
     return true;
 }
 
-void Render::renderToView(GLuint texID, int screenWidth, int screenHeight) {
-    glViewport(0, 0, screenWidth, screenHeight);
-
-    if (!mIsInitialized) {
-        LOGE("ViewRenderEffect::renderEffect effect not initialized!");
-        return;
-    }
-
-    glUseProgram (mGLProgId);
-    static const GLfloat _vertices[] = { -1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f };
-    glVertexAttribPointer(mGLVertexCoords, 2, GL_FLOAT, 0, 0, _vertices);
-    glEnableVertexAttribArray(mGLVertexCoords);
-    static const GLfloat texCoords[] = { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f };
-    glVertexAttribPointer(mGLTextureCoords, 2, GL_FLOAT, 0, 0, texCoords);
-    glEnableVertexAttribArray(mGLTextureCoords);
-
-    /* Binding the input texture */
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texID);
-    glUniform1i(mGLUniformTexture, 0);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glDisableVertexAttribArray(mGLVertexCoords);
-    glDisableVertexAttribArray(mGLTextureCoords);
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
 float Render::calcCropRatio(int screenWidth, int screenHeight, int texWidth, int texHeight) {
     int fitHeight = (int)((float)texHeight*screenWidth/texWidth+0.5f);
 
@@ -157,42 +130,6 @@ void Render::renderToAutoFitTexture(GLuint inputTexId, int width, int height, GL
 }
 
 
-
-void Render::renderToTexture(GLuint inputTexId, GLuint outputTexId) {
-    glViewport(_backingLeft, _backingTop, GLsizei(_backingWidth), GLsizei(_backingHeight));
-
-    if (!mIsInitialized) {
-        LOGE("ViewRenderEffect::renderEffect effect not initialized!");
-        return;
-    }
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, outputTexId, 0);
-    checkGlError("PassThroughRender::renderEffect glFramebufferTexture2D");
-    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-    if (status != GL_FRAMEBUFFER_COMPLETE) {
-        LOGI("failed to make complete framebuffer object %x", status);
-    }
-
-    glUseProgram (mGLProgId);
-    static const GLfloat _vertices[] = { -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f, -1.0f };
-    glVertexAttribPointer(mGLVertexCoords, 2, GL_FLOAT, 0, 0, _vertices);
-    glEnableVertexAttribArray(mGLVertexCoords);
-    static const GLfloat texCoords[] = {0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f };
-    glVertexAttribPointer(mGLTextureCoords, 2, GL_FLOAT, 0, 0, texCoords);
-    glEnableVertexAttribArray(mGLTextureCoords);
-
-    /* Binding the input texture */
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, inputTexId);
-    glUniform1i(mGLUniformTexture, 0);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glDisableVertexAttribArray(mGLVertexCoords);
-    glDisableVertexAttribArray(mGLTextureCoords);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, 0, 0);
-}
-
 void Render::checkGlError(const char* op){
     for (GLint error = glGetError(); error; error = glGetError()) {
         LOGE("after %s() glError (0x%x)\n", op, error);
@@ -202,41 +139,6 @@ void Render::checkGlError(const char* op){
 void Render::dealloc() {
     mIsInitialized = false;
     glDeleteProgram(mGLProgId);
-}
-
-void Render::renderToVFlipTexture(GLuint inputTexId, GLuint outputTexId) {
-    glViewport(_backingLeft, _backingTop, GLsizei(_backingWidth), GLsizei(_backingHeight));
-
-    if (!mIsInitialized) {
-        LOGE("ViewRenderEffect::renderEffect effect not initialized!");
-        return;
-    }
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, outputTexId, 0);
-    checkGlError("PassThroughRender::renderEffect glFramebufferTexture2D");
-    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-    if (status != GL_FRAMEBUFFER_COMPLETE) {
-        LOGI("failed to make complete framebuffer object %x", status);
-    }
-
-    glUseProgram (mGLProgId);
-    static const GLfloat _vertices[] = { -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f, -1.0f };
-    glVertexAttribPointer(mGLVertexCoords, 2, GL_FLOAT, 0, 0, _vertices);
-    glEnableVertexAttribArray(mGLVertexCoords);
-    static const GLfloat texCoords[] = {0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f };
-    glVertexAttribPointer(mGLTextureCoords, 2, GL_FLOAT, 0, 0, texCoords);
-    glEnableVertexAttribArray(mGLTextureCoords);
-
-    /* Binding the input texture */
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, inputTexId);
-    glUniform1i(mGLUniformTexture, 0);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glDisableVertexAttribArray(mGLVertexCoords);
-    glDisableVertexAttribArray(mGLTextureCoords);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, 0, 0);
 }
 
 GLuint Render::loadProgram(char* pVertexSource, char* pFragmentSource) {

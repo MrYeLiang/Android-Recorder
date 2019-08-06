@@ -54,7 +54,6 @@ public:
     void init(int degress, bool isVFlip, int textureWidth, int textureHeight, int cameraWidth, int cameraHeight);
     void setDegress(int degress, bool isVFlip);
     void processFrame(float position);
-    void drawToView(int videoWidth, int videoHeight);
     void drawToViewWithAutofit(int videoWidth, int videoHeight, int texWidth, int texHeight);
     void dealloc();
 

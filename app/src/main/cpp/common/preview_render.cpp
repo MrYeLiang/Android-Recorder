@@ -101,9 +101,6 @@ void PreviewRender::processFrame(float position) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void PreviewRender::drawToView(int videoWidth, int videoHeight) {
-    mRenderer->renderToView(inputTexId, videoWidth, videoHeight);
-}
 
 void PreviewRender::drawToViewWithAutofit(int videoWidth, int videoHeight, int texWidth, int texHeight) {
     mRenderer->renderToViewWithAutofit(inputTexId, videoWidth, videoHeight, texWidth, texHeight);
