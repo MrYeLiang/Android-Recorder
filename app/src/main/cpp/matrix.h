@@ -10,8 +10,5 @@
 #include <string>
 
 void matrixSetIdentityM(float *m);
-void matrixSetRotateM(float *m, float a, float x, float y, float z);
-void matrixMultiplyMM(float *m, float *lhs, float *rhs);
-void matrixTranslateM(float *m, float x, float y, float z);
 
 #endif //ANDROIDRECORDER_MATRIX_H

@@ -19,20 +19,13 @@ public:
     bool init(EGLContext shareContext);
 
     EGLSurface createWindowSurface(ANativeWindow *_window);
-    EGLSurface createOffScreenSurface(int width, int height);
 
     bool makeCurrent(EGLSurface eglSurface);
 
     bool swapBuffers(EGLSurface eglSurface);
 
-    int setPresentationTime(EGLSurface surface, khronos_stime_nanoseconds_t nsesc);
-
-    void releaseSurface(EGLSurface eglSurface);
-
     void release();
 
-    EGLContext getContext();
-    EGLConfig getConfig();
 
 private:
     EGLDisplay  display;

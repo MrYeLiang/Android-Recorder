@@ -25,14 +25,6 @@ void EGLCore::release() {
     context = EGL_NO_CONTEXT;
 }
 
-void EGLCore::releaseSurface(EGLSurface eglSurface) {
-    eglDestroyContext(display, eglSurface);
-}
-
-EGLContext EGLCore::getContext() {
-    return context;
-}
-
 EGLSurface EGLCore::createWindowSurface(ANativeWindow *_window) {
     EGLSurface  surface = NULL;
     EGLint format;
@@ -53,20 +45,6 @@ EGLSurface EGLCore::createWindowSurface(ANativeWindow *_window) {
         LOGE("eglCreateWindowSurface error!");
     }
     return surface;
-}
-
-EGLSurface EGLCore::createOffScreenSurface(int width, int height) {
-    EGLSurface surface;
-    EGLint PbufferAttributes[] = {EGL_WIDTH, width, EGL_HEIGHT, };
-    if(!(surface = eglCreatePbufferSurface(display, config, PbufferAttributes))){
-        LOGE("eglCreatePbufferSurface error!");
-    }
-    return surface;
-}
-
-int EGLCore::setPresentationTime(EGLSurface surface, khronos_stime_nanoseconds_t nsesc) {
-    pfneglPresentationTimeANDROID(display, surface, nsesc);
-    return 1;
 }
 
 bool EGLCore::swapBuffers(EGLSurface eglSurface) {

@@ -19,7 +19,6 @@ public:
     virtual ~GPUTextureFrame();
 
     bool createTexture();
-    void updateTexImage();
     bool bindTexture(GLint* uniformSamplers);
     void dealloc();
 

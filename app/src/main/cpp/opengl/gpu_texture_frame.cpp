@@ -25,10 +25,6 @@ bool GPUTextureFrame::createTexture() {
     return true;
 }
 
-void GPUTextureFrame::updateTexImage() {
-//TODO:调用surfaceTexture
-}
-
 bool GPUTextureFrame::bindTexture(GLint* uniformSamplers) {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_EXTERNAL_OES, decodeTexId);
