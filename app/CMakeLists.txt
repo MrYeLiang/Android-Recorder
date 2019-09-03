@@ -15,7 +15,6 @@ add_library(native-lib
              src/main/cpp/opengl/gpu_texture_frame.cpp
              src/main/cpp/texture_copier/texture_frame_copier.cpp
              src/main/cpp/texture_copier/gpu_texture_frame_copier.cpp
-             src/main/cpp/encoder/video_encoder_adapter.cpp
              src/main/jni/PreviewScheduler.cpp )
 
 
