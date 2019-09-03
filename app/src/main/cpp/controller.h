@@ -12,7 +12,7 @@
 #include "common/message_handler.h"
 #include "egl/egl_core.h"
 #include "opengl/opengl_render.h"
-#include "common/preview_render.h"
+#include "opengl/preview_render.h"
 #include "common/coomon_utils.h"
 
 #define CAMERA_FACING_BACK   0

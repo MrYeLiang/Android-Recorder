@@ -42,10 +42,13 @@ void PreviewRender::init(int degress, bool isVFlip, int textureWidth, int textur
 
     mCopier = new GPUTextureFrameCopier();
     mCopier->init();
+
     mRenderer = new Render();
     mRenderer->init(textureWidth, textureHeight);
+
     cameraTexFrame = new GPUTextureFrame();
     cameraTexFrame->createTexture();
+
     glGenTextures(1, &inputTexId);
     checkGlError("glGenTextures inputTexId");
     glBindTexture(GL_TEXTURE_2D, inputTexId);

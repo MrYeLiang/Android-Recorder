@@ -7,9 +7,9 @@
 
 
 #include <GLES2/gl2.h>
-#include "../opengl/gpu_texture_frame.h"
+#include "gpu_texture_frame.h"
 #include "../texture_copier/gpu_texture_frame_copier.h"
-#include "../opengl/opengl_render.h"
+#include "opengl_render.h"
 
 static GLfloat CAMERA_TRIANGLE_VERTICES[8] = {
         -1.0f, -1.0f,	// 0 top left
